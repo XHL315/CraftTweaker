@@ -569,13 +569,14 @@ public class Commands {
             
             @Override
             public void executeCommand(MinecraftServer server, ICommandSender sender, String[] args) {
+                String url = "https://docs.blamejared.com/1.12";
                 if(sender.getCommandSenderEntity() instanceof EntityPlayer) {
                     MCPlayer player = new MCPlayer((EntityPlayer) sender.getCommandSenderEntity());
-                    player.openBrowser("http://docs.blamejared.com/en/");
-                    sender.sendMessage(getClickableBrowserLinkText("http://docs.blamejared.com/en/", "http://docs.blamejared.com/en/"));
+                    player.openBrowser(url);
+                    sender.sendMessage(getClickableBrowserLinkText(url, url));
                     
                 } else {
-                    sender.sendMessage(new TextComponentString("http://docs.blamejared.com/en/"));
+                    sender.sendMessage(new TextComponentString(url));
                 }
             }
         });

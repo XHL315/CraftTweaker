@@ -99,7 +99,7 @@ public class MCItemStack implements IItemStack {
         this.tag = tag;
     }
     
-    private MCItemStack(ItemStack itemStack, IData tag, boolean wildcardSize) {
+    protected MCItemStack(ItemStack itemStack, IData tag, boolean wildcardSize) {
         if(itemStack.isEmpty())
             throw new IllegalArgumentException("stack cannot be null");
         stack = itemStack;
@@ -111,7 +111,7 @@ public class MCItemStack implements IItemStack {
     
     /**
      * This is a constructor which creates a itemstack that doesn't copy the internal stack
-     * Only use this is you are sure it will never be changed
+     * Only use this if you are sure it will never be changed
      *
      * @param unused to prevent constructor conflicts, has no purpose
      */
@@ -375,7 +375,7 @@ public class MCItemStack implements IItemStack {
         if(stack.hasTagCompound() && matchTagExact) {
             return matchesExact(item);
         }
-        return !internal.isEmpty() && !stack.isEmpty() && internal.getItem() == stack.getItem() && (wildcardSize || internal.getCount() >= stack.getCount()) && (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack.getItemDamage() == internal.getItemDamage() || (!stack.getHasSubtypes() && !stack.getItem().isDamageable()));
+        return !internal.isEmpty() && !stack.isEmpty() && internal.getItem() == stack.getItem() && (wildcardSize || internal.getCount() >= stack.getCount()) && (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE || internal.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack.getItemDamage() == internal.getItemDamage() || (!stack.getHasSubtypes() && !stack.getItem().isDamageable()));
     }
     
     @Override
@@ -391,7 +391,7 @@ public class MCItemStack implements IItemStack {
             return false;
         }
         
-        boolean itemMatches = stack.getItem() == internal.getItem() && (internal.getMetadata() == OreDictionary.WILDCARD_VALUE || stack.getMetadata() == internal.getMetadata());
+        boolean itemMatches = stack.getItem() == internal.getItem() && (stack.getItemDamage() == OreDictionary.WILDCARD_VALUE || internal.getItemDamage() == OreDictionary.WILDCARD_VALUE || stack.getMetadata() == internal.getMetadata());
         
         if(itemMatches) {
     
